@@ -4,6 +4,7 @@ const express = require('express');
 const { capacidad, clasificarViaje, resumenPorTipo } = require('./reporte.js');
 
 const app = express();
+app.use(express.static('public'));
 const PORT = 3000;
 
 // Datos de los viajes del día (arreglo de objetos)
