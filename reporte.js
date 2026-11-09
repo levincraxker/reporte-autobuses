@@ -25,5 +25,11 @@ function resumenPorTipo(viajes, tipo) {
     };
 }
 
+// Función que agrega un viaje nuevo usando el operador spread
+function agregarViaje(viajes, viajeNuevo) {
+    // Spread: copia el arreglo original y le agrega el viaje nuevo
+    return [...viajes, viajeNuevo];
+}
+
 // Exportamos para que el servidor pueda usarlas
-module.exports = { capacidad, clasificarViaje, resumenPorTipo };
+module.exports = { capacidad, clasificarViaje, resumenPorTipo, agregarViaje };

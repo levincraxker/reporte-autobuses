@@ -1,7 +1,7 @@
 // app.js — Servidor Express con la API del reporte de autobuses
 
 const express = require('express');
-const { capacidad, clasificarViaje, resumenPorTipo } = require('./reporte.js');
+const { capacidad, clasificarViaje, resumenPorTipo, agregarViaje } = require('./reporte.js');
 
 const app = express();
 app.use(express.static('public'));
@@ -9,14 +9,14 @@ const PORT = 3000;
 
 // Datos de los viajes del día (arreglo de objetos)
 const viajes = [
-    { tipo: 'P', pasajeros: 15 },
-    { tipo: 'G', pasajeros: 40 },
-    { tipo: 'P', pasajeros: 8 },
-    { tipo: 'G', pasajeros: 55 },
-    { tipo: 'P', pasajeros: 20 },
-    { tipo: 'G', pasajeros: 25 },
-    { tipo: 'P', pasajeros: 12 },
-    { tipo: 'G', pasajeros: 60 }
+    { tipo: 'P', pasajeros: 5 },
+    { tipo: 'G', pasajeros: 10 },
+    { tipo: 'P', pasajeros: 5 },
+    { tipo: 'G', pasajeros: 10 },
+    { tipo: 'P', pasajeros: 5 },
+    { tipo: 'G', pasajeros: 10 },
+    { tipo: 'P', pasajeros: 5 },
+    { tipo: 'G', pasajeros: 10 },
 ];
 
 // Ruta: reporte completo por viaje (.map() + destructuración)
@@ -42,6 +42,18 @@ app.get('/api/resumen', (req, res) => {
 app.get('/api/viajes', (req, res) => {
     res.json(viajes);
 });
+
+// Ruta que muestra un viaje agregado con spread (sin modificar el arreglo original)
+app.get('/api/agregar', (req, res) => {
+    const viajeNuevo = { tipo: 'G', pasajeros: 45 };
+    const viajesActualizados = agregarViaje(viajes, viajeNuevo);
+    res.json({
+        original: viajes.length,
+        actualizado: viajesActualizados.length,
+        viajesActualizados
+    });
+});
+
 
 // Arrancar el servidor
 app.listen(PORT, () => {
